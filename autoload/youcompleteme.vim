@@ -741,6 +741,12 @@ function! youcompleteme#Complete( findstart, base )
     endif
     exec s:python_command "ycm_state.CreateCompletionRequest()"
     return s:Pyeval( 'base.CompletionStartColumn()' )
+    if g:ycm_prefer_semantic == 1
+            py ycm_state.CreateCompletionRequest( force_semantic = True )
+        else
+            py ycm_state.CreateCompletionRequest( )
+        endif
+    return pyeval( 'base.CompletionStartColumn()' )
   else
     return s:GetCompletions()
   endif
